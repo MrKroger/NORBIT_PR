@@ -1,0 +1,14 @@
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\bin\Debug\net10.0\Hard_Persent.exe
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\bin\Debug\net10.0\Hard_Persent.deps.json
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\bin\Debug\net10.0\Hard_Persent.runtimeconfig.json
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\bin\Debug\net10.0\Hard_Persent.dll
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\bin\Debug\net10.0\Hard_Persent.pdb
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\obj\Debug\net10.0\Hard_Persent.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\obj\Debug\net10.0\Hard_Persent.AssemblyInfoInputs.cache
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\obj\Debug\net10.0\Hard_Persent.AssemblyInfo.cs
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\obj\Debug\net10.0\Hard_Persent.csproj.CoreCompileInputs.cache
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\obj\Debug\net10.0\Hard_Persent.dll
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\obj\Debug\net10.0\refint\Hard_Persent.dll
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\obj\Debug\net10.0\Hard_Persent.pdb
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\obj\Debug\net10.0\Hard_Persent.genruntimeconfig.cache
+C:\Users\XDXDXD\source\Проекты1\University\практика\1_task\Hard_Persent\obj\Debug\net10.0\ref\Hard_Persent.dll
