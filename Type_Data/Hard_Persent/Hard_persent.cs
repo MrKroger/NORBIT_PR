@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Text;
 
-class Program
+class Hard_Persent
 {
-    static string CalculateHardPercent(double initialDeposit, int years, double interestRate)
+    static double[] CalculateHardPercent(double initialDeposit, int years, double interestRate)
     {
-        StringBuilder result = new StringBuilder();
+        double[] results = new double[years];
 
         double percentageMultiplier = 1 + (interestRate / 100.0);
-
         double currentDeposit = initialDeposit;
 
-        for (int i = 1; i <= years; i++)
+        for (int i = 0; i < years; i++)
         {
             currentDeposit *= percentageMultiplier;
-            result.AppendLine($"Год {i}: {currentDeposit:f2} руб.");
+            results[i] = currentDeposit;
         }
 
-        return result.ToString();
+        return results;
     }
 
     static void Main(string[] args)
@@ -31,10 +29,13 @@ class Program
         Console.Write("Введите годовую процентную ставку: ");
         double interestRate = Convert.ToDouble(Console.ReadLine());
 
-        string report = CalculateHardPercent(initialDeposit, years, interestRate);
+        double[] report = CalculateHardPercent(initialDeposit, years, interestRate);
 
         Console.WriteLine("\nРезультат расчета:");
-        Console.WriteLine(report);
+        for (int i = 0; i < report.Length; i++)
+        {
+            Console.WriteLine($"Год {i + 1}: {report[i]:f2} руб.");
+        }
 
         Console.ReadLine();
     }

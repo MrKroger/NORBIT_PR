@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-class Program
+class N_sDimond
 {
     static string CalculateHardPercent(int N)
     {
