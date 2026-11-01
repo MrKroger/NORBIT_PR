@@ -1,7 +1,14 @@
+# .NET / Visual Studio
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Общее
 .vscode/
 .idea/
-__pycache__/
-*.pyc
-venv/
-.env
 *.log
+.env
