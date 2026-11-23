@@ -11,26 +11,21 @@ class Program
 
         try
         {
-            Console.Write("Введите координату X (может быть отрицательной): ");
-            double x = Convert.ToDouble(Console.ReadLine());
-
-            Console.Write("Введите координату Y (может быть отрицательной): ");
-            double y = Convert.ToDouble(Console.ReadLine());
-
-            Console.Write("Введите ширину (больше нуля): ");
-            double width = Convert.ToDouble(Console.ReadLine());
-
-            Console.Write("Введите высоту (больше нуля): ");
-            double height = Convert.ToDouble(Console.ReadLine());
+            var x = InputDouble("Введите координату X (может быть отрицательной): ");
+            var y = InputDouble("Введите координату Y (может быть отрицательной): ");
+            var width = InputDouble("Введите ширину (больше нуля): ");
+            var height = InputDouble("Введите высоту (больше нуля): ");
 
             // Создание объекта
-            Rectangle rect = new Rectangle(x, y, width, height);
+            var rect = new Rectangle(x, y, width, height);
 
             Console.WriteLine("\n--- Результаты ---");
-            Console.WriteLine($"Прямоугольник с координатами ({rect.X}, {rect.Y})");
-            Console.WriteLine($"Размеры: {rect.Width} x {rect.Height}");
-            Console.WriteLine($"Площадь: {rect.Area:f2}");
-            Console.WriteLine($"Периметр: {rect.Perimeter:f2}");
+            // Console.WriteLine($"Прямоугольник с координатами ({rect.X}, {rect.Y})");
+            // Console.WriteLine($"Размеры: {rect.Width} x {rect.Height}");
+            // Console.WriteLine($"Площадь: {rect.Area:f2}");
+            // Console.WriteLine($"Периметр: {rect.Perimeter:f2}");
+
+            Console.WriteLine(rect);
         }
         catch (ArgumentOutOfRangeException ex)
         {
@@ -42,5 +37,17 @@ class Program
         }
 
         Console.ReadLine();
+    }
+
+    /// <summary>
+    /// Запрашивает у пользователя число.
+    /// </summary>
+    /// <param name="prompt">Текст приглашения к вводу, который будет выведен на экран.</param>
+    /// <returns>Введенное пользователем число типа double.</returns>
+    /// <exception cref="FormatException">Выбрасывается, если введенная строка не является числом.</exception>
+    private static double InputDouble(string prompt)
+    {
+        Console.Write(prompt);
+        return Convert.ToDouble(Console.ReadLine());
     }
 }

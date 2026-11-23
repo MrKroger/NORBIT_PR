@@ -5,19 +5,7 @@ namespace SmartOrderProcessor
     /// </summary>
     public sealed class OrderItem
     {
-        /// <summary>
-        /// Инициализирует новый экземпляр товарной позиции.
-        /// </summary>
-        /// <param name="name">Название товара.</param>
-        /// <param name="price">Цена за единицу.</param>
-        /// <param name="quantity">Количество.</param>
-        public OrderItem(string name, decimal price, int quantity)
-        {
-            Name = name;
-            Price = price;
-            Quantity = quantity;
-        }
-
+        #region Свойства
         /// <summary>
         /// Название товара.
         /// </summary>
@@ -32,5 +20,18 @@ namespace SmartOrderProcessor
         /// Количество единиц товара.
         /// </summary>
         public int Quantity { get; }
+        #endregion
+
+        #region Конструкторы
+        /// <summary>
+        /// Инициализирует новый экземпляр товарной позиции.
+        /// </summary>
+        public OrderItem(string name, decimal price, int quantity)
+        {
+            Name = name;
+            Price = price;
+            Quantity = quantity;
+        }
+        #endregion
     }
 }

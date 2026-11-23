@@ -8,11 +8,14 @@ namespace SmartOrderProcessor
     /// </summary>
     public sealed class OrderProcessor
     {
+        #region События
         /// <summary>
         /// Событие, возникающее после успешной обработки заказа.
         /// </summary>
         public event EventHandler<OrderProcessedEventArgs>? OrderProcessed;
+        #endregion
 
+        #region Публичные методы
         /// <summary>
         /// Обрабатывает заказ, применяя фильтрацию, трансформацию цен и расчет стоимости.
         /// </summary>
@@ -51,18 +54,15 @@ namespace SmartOrderProcessor
                 if (item.Quantity <= 0)
                     throw new ArgumentOutOfRangeException(nameof(item), $"Количество товара '{item.Name}' должно быть больше нуля.");
 
-                // 1. Фильтрация (Predicate)
                 if (!shouldProcess(item))
                 {
                     log?.Invoke($"[LOG] Товар '{item.Name}' исключен из расчета.");
                     continue;
                 }
 
-                // 2. Трансформация цены (Func)
                 decimal transformedPrice = transformPrice(item.Price);
                 log?.Invoke($"[LOG] Цена товара '{item.Name}' изменена с {item.Price} на {transformedPrice}.");
 
-                // 3. Расчет стоимости позиции (Custom Delegate)
                 decimal itemTotal = calculateItemTotal(item, transformedPrice);
                 log?.Invoke($"[LOG] Стоимость позиции '{item.Name}': {itemTotal}.");
 
@@ -77,27 +77,29 @@ namespace SmartOrderProcessor
 
             return total;
         }
+        #endregion
 
+        #region Приватные методы
         /// <summary>
         /// Вызывает событие OrderProcessed с безопасной обработкой исключений в цепочке подписчиков.
         /// </summary>
-        private void OnOrderProcessed(OrderProcessedEventArgs e)
+        private void OnOrderProcessed(OrderProcessedEventArgs eventArgs)
         {
             if (OrderProcessed == null) return;
 
-            Delegate[] invocationList = OrderProcessed.GetInvocationList();
-
-            foreach (Delegate handler in invocationList)
+            // Получаем список всех подписчиков
+            foreach (var handler in OrderProcessed.GetInvocationList())
             {
                 try
                 {
-                    ((EventHandler<OrderProcessedEventArgs>)handler).Invoke(this, e);
+                    ((EventHandler<OrderProcessedEventArgs>)handler).Invoke(this, eventArgs);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[ОШИБКА ПОДПИСЧИКА] Один из обработчиков события вызвал исключение: {ex.Message}");
+                    Console.WriteLine($"[ОШИБКА ПОДПИСЧИКА] Один из обработчиков вызвал исключение: {ex.Message}");
                 }
             }
         }
+        #endregion
     }
 }

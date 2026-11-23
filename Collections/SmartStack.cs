@@ -4,35 +4,36 @@ using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-/// Пользовательская структура данных "Умный стек" на основе массива.
-/// Поддерживает обход, индексацию и динамическое расширение.
+/// Умный стек.
 /// </summary>
 /// <typeparam name="T">Тип элементов в стеке.</typeparam>
 public class SmartStack<T> : IEnumerable<T>, IEnumerable
 {
+    private const int DefaultCapacity = 4;
     private T[] _items;
     private int _count;
 
     /// <summary>
-    /// Получает текущее количество элементов в стеке.
+    /// Количество элементов в стеке.
     /// </summary>
     public int Count => _count;
 
     /// <summary>
-    /// Получает текущую емкость внутреннего массива.
+    /// Текущая емкость внутреннего массива.
     /// </summary>
     public int Capacity => _items.Length;
 
+    #region Конструкторы
     /// <summary>
     /// Инициализирует новый экземпляр стека с начальной емкостью 4 элемента.
     /// </summary>
-    public SmartStack()
+    public SmartStack(): this(DefaultCapacity)
     {
-        _items = new T[4];
+        // _items = new T[4];
     }
 
     /// <summary>
-    /// Инициализирует новый экземпляр стека с заданной начальной емкостью.
+    /// Инициализирует новый экземпляр стека с заданной емкостью.
     /// </summary>
     /// <param name="capacity">Начальная емкость массива. Должна быть больше нуля.</param>
     /// <exception cref="ArgumentOutOfRangeException">Выбрасывается, если емкость меньше или равна нулю.</exception>
@@ -53,16 +54,18 @@ public class SmartStack<T> : IEnumerable<T>, IEnumerable
         ArgumentNullException.ThrowIfNull(collection);
 
         T[] tempArray = collection.ToArray();
-        _items = new T[tempArray.Length > 0 ? tempArray.Length : 4];
+        _items = new T[tempArray.Length > 0 ? tempArray.Length : DefaultCapacity];
         _count = tempArray.Length;
 
         // Заполняем стек в обратном порядке
-        for (int i = 0; i < tempArray.Length; i++)
+        for (var i = 0; i < tempArray.Length; i++)
         {
             _items[i] = tempArray[tempArray.Length - 1 - i];
         }
     }
+    #endregion 
 
+    #region Основные операции
     /// <summary>
     /// Добавляет элемент на вершину стека. При нехватке места емкость удваивается.
     /// </summary>
@@ -72,28 +75,6 @@ public class SmartStack<T> : IEnumerable<T>, IEnumerable
         EnsureCapacity(_count + 1);
         _items[_count] = item;
         _count++;
-    }
-
-    /// <summary>
-    /// Добавляет элементы коллекции на вершину стека. Последний элемент коллекции станет вершиной.
-    /// </summary>
-    /// <param name="collection">Коллекция добавляемых элементов.</param>
-    /// <exception cref="ArgumentNullException">Выбрасывается, если коллекция равна null.</exception>
-    public void PushRange(IEnumerable<T> collection)
-    {
-        ArgumentNullException.ThrowIfNull(collection);
-
-        T[] tempArray = collection.ToArray();
-        if (tempArray.Length == 0) return;
-
-        EnsureCapacity(_count + tempArray.Length);
-
-        // Добавляем в обратном порядке, чтобы последний элемент стал вершиной
-        for (int i = tempArray.Length - 1; i >= 0; i--)
-        {
-            _items[_count] = tempArray[i];
-            _count++;
-        }
     }
 
     /// <summary>
@@ -109,7 +90,6 @@ public class SmartStack<T> : IEnumerable<T>, IEnumerable
         _count--;
         T item = _items[_count];
         
-        // Очищаем ссылку для сборщика мусора (полезно для ссылочных типов)
         _items[_count] = default!; 
         
         return item;
@@ -128,6 +108,31 @@ public class SmartStack<T> : IEnumerable<T>, IEnumerable
         return _items[_count - 1];
     }
 
+    #endregion
+
+    #region Дополнительные методы
+    /// <summary>
+    /// Добавляет элементы коллекции на вершину стека. Последний элемент коллекции станет вершиной.
+    /// </summary>
+    /// <param name="collection">Коллекция добавляемых элементов.</param>
+    /// <exception cref="ArgumentNullException">Выбрасывается, если коллекция равна null.</exception>
+    public void PushRange(IEnumerable<T> collection)
+    {
+        ArgumentNullException.ThrowIfNull(collection);
+
+        T[] tempArray = collection.ToArray();
+        if (tempArray.Length == 0) return;
+
+        EnsureCapacity(_count + tempArray.Length);
+
+        // Добавляем в обратном порядке, чтобы последний элемент стал вершиной
+        for (var i = tempArray.Length - 1; i >= 0; i--)
+        {
+            _items[_count] = tempArray[i];
+            _count++;
+        }
+    }
+
     /// <summary>
     /// Проверяет наличие элемента в стеке.
     /// </summary>
@@ -135,7 +140,7 @@ public class SmartStack<T> : IEnumerable<T>, IEnumerable
     /// <returns>True, если элемент найден, иначе False.</returns>
     public bool Contains(T item)
     {
-        for (int i = 0; i < _count; i++)
+        for (var i = 0; i < _count; i++)
         {
             if (EqualityComparer<T>.Default.Equals(_items[i], item))
             {
@@ -144,6 +149,8 @@ public class SmartStack<T> : IEnumerable<T>, IEnumerable
         }
         return false;
     }
+
+    #endregion
 
     /// <summary>
     /// Возвращает элемент по его глубине в стеке (0 - вершина, Count-1 - основание).
@@ -169,7 +176,9 @@ public class SmartStack<T> : IEnumerable<T>, IEnumerable
     {
         if (requiredCapacity <= _items.Length) return;
 
-        int newCapacity = _items.Length == 0 ? 4 : _items.Length * 2;
+        var newCapacity = _items.Length == 0 
+            ? DefaultCapacity 
+            : _items.Length * 2;
         
         // Если удвоенной емкости все равно не хватает (например, при PushRange)
         while (newCapacity < requiredCapacity)
@@ -185,7 +194,7 @@ public class SmartStack<T> : IEnumerable<T>, IEnumerable
     /// </summary>
     public IEnumerator<T> GetEnumerator()
     {
-        for (int i = _count - 1; i >= 0; i--)
+        for (var i = _count - 1; i >= 0; i--)
         {
             yield return _items[i];
         }

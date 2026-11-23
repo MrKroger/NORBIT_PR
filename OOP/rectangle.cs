@@ -1,8 +1,7 @@
 using System;
 
 /// <summary>
-/// Класс, представляющий геометрическую фигуру "Прямоугольник".
-/// Обеспечивает нахождение объекта в заведомо корректном состоянии.
+/// Прямоугольник.
 /// </summary>
 public class Rectangle
 {
@@ -12,7 +11,7 @@ public class Rectangle
     private double _height;
 
     /// <summary>
-    /// Координата X левого верхнего угла. Может быть отрицательной.
+    /// Координата X левого верхнего угла.
     /// </summary>
     public double X
     {
@@ -21,7 +20,7 @@ public class Rectangle
     }
 
     /// <summary>
-    /// Координата Y левого верхнего угла. Может быть отрицательной.
+    /// Координата Y левого верхнего угла.
     /// </summary>
     public double Y
     {
@@ -30,7 +29,7 @@ public class Rectangle
     }
 
     /// <summary>
-    /// Ширина прямоугольника. Должна быть строго больше нуля.
+    /// Ширина прямоугольника.
     /// </summary>
     public double Width
     {
@@ -43,7 +42,7 @@ public class Rectangle
     }
 
     /// <summary>
-    /// Высота прямоугольника. Должна быть строго больше нуля.
+    /// Высота прямоугольника.
     /// </summary>
     public double Height
     {
@@ -74,5 +73,13 @@ public class Rectangle
         Y = y;
         Width = width;
         Height = height;
+    }
+    public override string ToString()
+    {
+        return
+            $"Прямоугольник с координатами ({X}, {Y})"+
+            $"Размеры: {Width} x {Height}"+
+            $"Площадь: {Area:f2}"+
+            $"Периметр: {Perimeter:f2}";
     }
 }

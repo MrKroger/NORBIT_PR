@@ -7,9 +7,14 @@ namespace SmartOrderProcessor
     /// </summary>
     public sealed class OrderProcessedEventArgs : EventArgs
     {
-        /// <summary>
-        /// Инициализирует новый экземпляр аргументов события.
-        /// </summary>
+        #region Свойства
+        public int OrderId { get; }
+        public decimal Total { get; }
+        public int ProcessedItemsCount { get; }
+        public DateTimeOffset ProcessedAt { get; }
+        #endregion
+
+        #region Конструкторы
         public OrderProcessedEventArgs(int orderId, decimal total, int processedItemsCount, DateTimeOffset processedAt)
         {
             OrderId = orderId;
@@ -17,25 +22,6 @@ namespace SmartOrderProcessor
             ProcessedItemsCount = processedItemsCount;
             ProcessedAt = processedAt;
         }
-
-        /// <summary>
-        /// Идентификатор обработанного заказа.
-        /// </summary>
-        public int OrderId { get; }
-        
-        /// <summary>
-        /// Итоговая сумма заказа.
-        /// </summary>
-        public decimal Total { get; }
-        
-        /// <summary>
-        /// Количество успешно обработанных позиций.
-        /// </summary>
-        public int ProcessedItemsCount { get; }
-        
-        /// <summary>
-        /// Дата и время завершения обработки.
-        /// </summary>
-        public DateTimeOffset ProcessedAt { get; }
+        #endregion
     }
 }
